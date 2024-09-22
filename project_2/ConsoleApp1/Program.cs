@@ -73,13 +73,13 @@ class BasalMethabolicRate
     {
         for (int i = 0; i < index; i++)
         {
-            double tmbResult = BMRCalculation(age[i], weight[i], height[i], gender);
+            double bmrResult = BMRCalculation(age[i], weight[i], height[i], gender);
 
             Console.WriteLine("+++++++++++++++++++++++++++++++++");
             Console.WriteLine($"+ Age: {age[i]}\t\t\t+");
             Console.WriteLine($"+ Height: {height[i]} cm\t\t+");
             Console.WriteLine($"+ Weight: {weight[i]} kg\t\t\t+");
-            Console.WriteLine($"+ TMB: {tmbResult.ToString("F3")} Kcal/day \t+");
+            Console.WriteLine($"+ TMB: {bmrResult.ToString("F3")} Kcal/day \t+");
             Console.WriteLine($"+ Date: {date[i]}\t\t+");
             Console.WriteLine("+++++++++++++++++++++++++++++++++");
 
