@@ -1,0 +1,4 @@
+{
+    "dotnet.defaultSolution": "ConsoleApp1.sln",
+    "r.lsp.promptToInstall": false
+}
