@@ -1,18 +1,12 @@
-﻿using System.Globalization;
+﻿using System;
 
-class TaxaMetabolicaBasal
+class BasalMethabolicRate
 {
     static void Main()
     {
-        /*
-        CLI para calcular a taxa metabólica basal do usuário com base no peso(kg), idade e altura(cm);
-        O programa deve armazenar, modificar e mostrar os dados do usuário;
-        o usuário pode calcular novamente seu TMB adicionando o dia (método AdicionarDados);
-        O usuário pode encerrar o programa (método Quit)
-        */
         const int STORAGE = 100;
 
-        TaxaMetabolicaBasal q = new TaxaMetabolicaBasal();
+        BasalMethabolicRate q = new BasalMethabolicRate();
 
         string userName = null;
         char gender = ' ';
@@ -64,10 +58,10 @@ class TaxaMetabolicaBasal
         Console.Write("Type your age: ");
         age[index] = Convert.ToInt32(Console.ReadLine());
 
-        Console.Write("Type your height: ");
+        Console.Write("Type your height (cm): ");
         height[index] = Convert.ToInt32(Console.ReadLine());
 
-        Console.Write("Type your weight: ");
+        Console.Write("Type your weight (kg): ");
         weight[index] = Convert.ToDouble(Console.ReadLine());
 
         Console.Write("Type current date (dd/mm/yyyy): ");
@@ -75,11 +69,11 @@ class TaxaMetabolicaBasal
 
     }
 
-    public void MostrarDados(int[] age, int[] height, double[] weight, string[] date, char gender,int index)
+    public void MostrarDados(int[] age, int[] height, double[] weight, string[] date, char gender, int index)
     {
         for (int i = 0; i < index; i++)
         {
-            double tmbResult = TMBCalculation(age[i], weight[i], height[i], gender);
+            double tmbResult = BMRCalculation(age[i], weight[i], height[i], gender);
 
             Console.WriteLine("+++++++++++++++++++++++++++++++++");
             Console.WriteLine($"+ Age: {age[i]}\t\t\t+");
@@ -92,7 +86,7 @@ class TaxaMetabolicaBasal
         }
     }
 
-    public double TMBCalculation(int idade, double peso, int altura, char gender) 
+    public double BMRCalculation(int age, double weight, int height, char gender) 
     {
         // Function that calculates the Herris Benedict equation for Basal Methabolic Rate (BMR) whitch takes four parameters
         // user age, gender, weight(kg), and height(cm).
@@ -100,13 +94,13 @@ class TaxaMetabolicaBasal
 
         if (gender == 'M' || gender == 'm')
         {
-            tmbResult = 88.36 + (13.4 * peso) + (4.8 * altura) - (5.7 * idade);
+            tmbResult = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
 
             return tmbResult;
 
         }else if (gender == 'F' || gender == 'f')
         {
-            tmbResult = 447.6 + (9.2 * peso) + (3.1 * altura) - (4.3 * idade);
+            tmbResult = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
 
             return tmbResult;
         }
