@@ -25,35 +25,48 @@ class BasalMethabolicRate
 
             if (command == "add")
             {
-                if (userName != null && gender != ' ')
+                if (currentIndex < STORAGE)
                 {
-                    q.AdicionarDados(age, height, weight, date, gender, currentIndex);
+                    if (userName != null && gender != ' ')
+                    {
+                        q.AddData(age, height, weight, date, gender, currentIndex);
 
-                }else{           
-                    Console.Write("Type your name: ");
-                    userName = Console.ReadLine();
+                    }else{           
+                        Console.Write("Type your name: ");
+                        userName = Console.ReadLine();
 
-                    Console.Write("Type your gender (m/f): ");
-                    gender = Convert.ToChar(Console.ReadLine());
+                        Console.Write("Type your gender (m/f): ");
+                        gender = Convert.ToChar(Console.ReadLine());
 
-                    q.AdicionarDados(age, height, weight, date, gender, currentIndex);
+                        q.AddData(age, height, weight, date, gender, currentIndex);
+                    }
+                }else {
+                    Console.WriteLine("The space is full.");
                 }
 
                 currentIndex++;
 
             }else if (command == "show")
             {
-                q.MostrarDados(age, height, weight, date, gender, currentIndex);
+                if (userName == null)
+                {
+                    Console.WriteLine("No data stored.");
+                }else{
+                    q.ShowData(age, height, weight, date, gender, currentIndex);
+                }
 
             }else if (command == "quit")
             {
                 break;
+            }else if (command == "search")
+            {
+                q.SearchData(age, height, weight, currentIndex, gender, date);
             }
 
         }
     }
 
-    public void AdicionarDados(int[] age, int[] height, double[] weight, string[] date,char gender, int index)
+    public void AddData(int[] age, int[] height, double[] weight, string[] date,char gender, int index)
     {
         Console.Write("Type your age: ");
         age[index] = Convert.ToInt32(Console.ReadLine());
@@ -69,40 +82,73 @@ class BasalMethabolicRate
 
     }
 
-    public void MostrarDados(int[] age, int[] height, double[] weight, string[] date, char gender, int index)
+    public void DataMessage(int[] age, int[] height, double[] weight, string[] date, char gender, int variateIndex)
+    {
+        double bmrResult = BMRCalculation(age[variateIndex], weight[variateIndex], height[variateIndex], gender);
+
+        Console.WriteLine("+++++++++++++++++++++++++++++++++");
+        Console.WriteLine($"+ Age: {age[variateIndex]}\t\t\t+");
+        Console.WriteLine($"+ Height: {height[variateIndex]} cm\t\t+");
+        Console.WriteLine($"+ Weight: {weight[variateIndex]} kg\t\t\t+");
+        Console.WriteLine($"+ TMB: {bmrResult.ToString("F3")} Kcal/day \t+");
+        Console.WriteLine($"+ Date: {date[variateIndex]}\t\t+");
+        Console.WriteLine("+++++++++++++++++++++++++++++++++");
+    }
+
+    public void ShowData(int[] age, int[] height, double[] weight, string[] date, char gender, int index = 0)
     {
         for (int i = 0; i < index; i++)
         {
-            double bmrResult = BMRCalculation(age[i], weight[i], height[i], gender);
-
-            Console.WriteLine("+++++++++++++++++++++++++++++++++");
-            Console.WriteLine($"+ Age: {age[i]}\t\t\t+");
-            Console.WriteLine($"+ Height: {height[i]} cm\t\t+");
-            Console.WriteLine($"+ Weight: {weight[i]} kg\t\t\t+");
-            Console.WriteLine($"+ TMB: {bmrResult.ToString("F3")} Kcal/day \t+");
-            Console.WriteLine($"+ Date: {date[i]}\t\t+");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++");
-
+            DataMessage(age, height, weight, date, gender, i);
         }
+    }
+
+    public void SearchData(int[] age, int[] height, double[] weight, int index, char gender, string[] date)
+    {
+        /*função que encontra os dados inseridos usando como base na data de adição.*/
+
+        string userSearch;
+
+        Console.Write("Type Date (dd/mm/yyyy)");
+        userSearch = Convert.ToString(Console.ReadLine());
+
+        for (int i = 0; i < index; i++)
+        {
+            if (date != null)
+            {
+                if (date[i] == userSearch)
+                {
+                    DataMessage(age, height, weight, date, gender, i);
+
+                    break;
+                }else{
+                    Console.WriteLine("Data not found.");
+                }
+            }else{
+                Console.WriteLine("No data stored.");
+                break;
+            }
+        }
+
     }
 
     public double BMRCalculation(int age, double weight, int height, char gender) 
     {
         // Function that calculates the Herris Benedict equation for Basal Methabolic Rate (BMR) whitch takes four parameters
         // user age, gender, weight(kg), and height(cm).
-        double tmbResult;
+        double bmrResult;
 
         if (gender == 'M' || gender == 'm')
         {
-            tmbResult = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+            bmrResult = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
 
-            return tmbResult;
+            return bmrResult;
 
         }else if (gender == 'F' || gender == 'f')
         {
-            tmbResult = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+            bmrResult = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
 
-            return tmbResult;
+            return bmrResult;
         }
 
         return 0;
