@@ -52,7 +52,7 @@ class BasalMethabolicRate
                 {
                     Console.WriteLine("No data stored.");
                 }else{
-                    q.ShowData(age, height, weight, date, gender, currentIndex);
+                    q.ShowData(userName, age, height, weight, date, gender, currentIndex);
                 }
 
             }else if (command == "quit")
@@ -60,7 +60,7 @@ class BasalMethabolicRate
                 break;
             }else if (command == "search")
             {
-                q.SearchData(age, height, weight, currentIndex, gender, date);
+                q.SearchData(userName, age, height, weight, currentIndex, gender, date);
             }
 
         }
@@ -82,30 +82,35 @@ class BasalMethabolicRate
 
     }
 
-    public void DataMessage(int[] age, int[] height, double[] weight, string[] date, char gender, int variateIndex)
+    public void DataMessage(string name, int[] age, int[] height, double[] weight, string[] date, char gender, int variateIndex)
     {
         double bmrResult = BMRCalculation(age[variateIndex], weight[variateIndex], height[variateIndex], gender);
 
         Console.WriteLine("+++++++++++++++++++++++++++++++++");
+        Console.WriteLine($"+ Name: {name}\t\t+");
         Console.WriteLine($"+ Age: {age[variateIndex]}\t\t\t+");
         Console.WriteLine($"+ Height: {height[variateIndex]} cm\t\t+");
         Console.WriteLine($"+ Weight: {weight[variateIndex]} kg\t\t\t+");
-        Console.WriteLine($"+ TMB: {bmrResult.ToString("F3")} Kcal/day \t+");
+        Console.WriteLine($"+ BMR: {bmrResult.ToString("F3")} Kcal/day \t+");
         Console.WriteLine($"+ Date: {date[variateIndex]}\t\t+");
         Console.WriteLine("+++++++++++++++++++++++++++++++++");
     }
 
-    public void ShowData(int[] age, int[] height, double[] weight, string[] date, char gender, int index = 0)
+    public void ShowData(string name, int[] age, int[] height, double[] weight, string[] date, char gender, int index = 0)
     {
         for (int i = 0; i < index; i++)
         {
-            DataMessage(age, height, weight, date, gender, i);
+            DataMessage(name, age, height, weight, date, gender, i);
         }
     }
 
-    public void SearchData(int[] age, int[] height, double[] weight, int index, char gender, string[] date)
+    // mean of user bmr
+
+    // delete data
+
+    public void SearchData(string name, int[] age, int[] height, double[] weight, int index, char gender, string[] date)
     {
-        /*função que encontra os dados inseridos usando como base na data de adição.*/
+        /*função que encontra os dados inseridos usando como base a data de adição.*/
 
         string userSearch;
 
@@ -118,7 +123,7 @@ class BasalMethabolicRate
             {
                 if (date[i] == userSearch)
                 {
-                    DataMessage(age, height, weight, date, gender, i);
+                    DataMessage(name, age, height, weight, date, gender, i);
 
                     break;
                 }else{
