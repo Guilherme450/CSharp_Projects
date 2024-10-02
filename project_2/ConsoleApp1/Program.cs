@@ -18,6 +18,8 @@ class BasalMethabolicRate
         double[] weight = new double[STORAGE];
         string[] date = new string[STORAGE];
 
+        q.HelpMessage();
+
         while (true)
         {
             Console.Write("> ");
@@ -57,10 +59,14 @@ class BasalMethabolicRate
 
             }else if (command == "quit")
             {
+                Console.WriteLine("Program exited.");
                 break;
             }else if (command == "search")
             {
                 q.SearchData(userName, age, height, weight, currentIndex, gender, date);
+            }else if (command == "help")
+            {
+                q.HelpMessage();
             }
 
         }
@@ -90,8 +96,9 @@ class BasalMethabolicRate
         Console.WriteLine($"+ Name: {name}\t\t+");
         Console.WriteLine($"+ Age: {age[variateIndex]}\t\t\t+");
         Console.WriteLine($"+ Height: {height[variateIndex]} cm\t\t+");
-        Console.WriteLine($"+ Weight: {weight[variateIndex]} kg\t\t\t+");
-        Console.WriteLine($"+ BMR: {bmrResult.ToString("F3")} Kcal/day \t+");
+        Console.WriteLine($"+ Weight: {weight[variateIndex]:N} kg\t\t+");
+        //Console.WriteLine($"+ BMR: {bmrResult.ToString("F3")} Kcal/day \t+");
+        Console.WriteLine($"+ BMR: {bmrResult:N2} Kcal/day \t+");
         Console.WriteLine($"+ Date: {date[variateIndex]}\t\t+");
         Console.WriteLine("+++++++++++++++++++++++++++++++++");
     }
@@ -135,6 +142,19 @@ class BasalMethabolicRate
             }
         }
 
+    }
+
+    public void HelpMessage()
+    {
+        Console.WriteLine("####### WELLCOME BACK #######");
+        Console.WriteLine("\tBMR Tracker");
+        Console.WriteLine("\t--commands--");
+        Console.WriteLine("add: Add data");
+        Console.WriteLine("show: Show the data stored");
+        Console.WriteLine("search: Searchs for a specific data");
+        Console.WriteLine("help: Show all the commands");
+        Console.WriteLine("quit: Stops the program");
+        Console.WriteLine("#############################");
     }
 
     public double BMRCalculation(int age, double weight, int height, char gender) 
