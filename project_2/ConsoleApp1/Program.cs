@@ -17,6 +17,7 @@ class BasalMethabolicRate
         int[] height = new int[STORAGE];
         double[] weight = new double[STORAGE];
         string[] date = new string[STORAGE];
+        double[] bmr = new double[STORAGE];
 
         q.HelpMessage();
 
@@ -31,7 +32,7 @@ class BasalMethabolicRate
                 {
                     if (userName != null && gender != ' ')
                     {
-                        q.AddData(age, height, weight, date, gender, currentIndex);
+                        q.AddData(age, height, weight, date, gender, currentIndex, bmr);
 
                     }else{           
                         Console.Write("Type your name: ");
@@ -40,10 +41,11 @@ class BasalMethabolicRate
                         Console.Write("Type your gender (m/f): ");
                         gender = Convert.ToChar(Console.ReadLine());
 
-                        q.AddData(age, height, weight, date, gender, currentIndex);
+                        q.AddData(age, height, weight, date, gender, currentIndex, bmr);
                     }
                 }else {
-                    Console.WriteLine("The space is full.");
+                    Console.WriteLine("The space is full. Cannot add more data.");
+                    break;
                 }
 
                 currentIndex++;
@@ -54,7 +56,7 @@ class BasalMethabolicRate
                 {
                     Console.WriteLine("No data stored.");
                 }else{
-                    q.ShowData(userName, age, height, weight, date, gender, currentIndex);
+                    q.ShowData(userName, age, height, weight, date, gender, bmr, currentIndex);
                 }
 
             }else if (command == "quit")
@@ -63,16 +65,22 @@ class BasalMethabolicRate
                 break;
             }else if (command == "search")
             {
-                q.SearchData(userName, age, height, weight, currentIndex, gender, date);
+                q.SearchData(userName, age, height, weight, currentIndex, gender, date, bmr);
             }else if (command == "help")
             {
                 q.HelpMessage();
+            }else if (command == "average")
+            {
+                Console.WriteLine($"BMR Average: {q.BMRAverage(bmr, currentIndex):N2} Kcal/day");
+            }else if (command == "delete")
+            {
+                Console.WriteLine("Sorry! We are still working on this.");
             }
 
         }
     }
 
-    public void AddData(int[] age, int[] height, double[] weight, string[] date,char gender, int index)
+    public void AddData(int[] age, int[] height, double[] weight, string[] date,char gender, int index, double[] bmr)
     {
         Console.Write("Type your age: ");
         age[index] = Convert.ToInt32(Console.ReadLine());
@@ -85,10 +93,11 @@ class BasalMethabolicRate
 
         Console.Write("Type current date (dd/mm/yyyy): ");
         date[index] = Convert.ToString(Console.ReadLine());
+        bmr[index] = BMRCalculation(age[index], weight[index], height[index], gender);
 
     }
 
-    public void DataMessage(string name, int[] age, int[] height, double[] weight, string[] date, char gender, int variateIndex)
+    public void DataMessage(string name, int[] age, int[] height, double[] weight, string[] date, char gender, int variateIndex, double[] bmr)
     {
         double bmrResult = BMRCalculation(age[variateIndex], weight[variateIndex], height[variateIndex], gender);
 
@@ -97,25 +106,65 @@ class BasalMethabolicRate
         Console.WriteLine($"+ Age: {age[variateIndex]}\t\t\t+");
         Console.WriteLine($"+ Height: {height[variateIndex]} cm\t\t+");
         Console.WriteLine($"+ Weight: {weight[variateIndex]:N} kg\t\t+");
-        //Console.WriteLine($"+ BMR: {bmrResult.ToString("F3")} Kcal/day \t+");
-        Console.WriteLine($"+ BMR: {bmrResult:N2} Kcal/day \t+");
+        Console.WriteLine($"+ BMR: {bmr[variateIndex]:N2} Kcal/day \t+");
         Console.WriteLine($"+ Date: {date[variateIndex]}\t\t+");
         Console.WriteLine("+++++++++++++++++++++++++++++++++");
     }
 
-    public void ShowData(string name, int[] age, int[] height, double[] weight, string[] date, char gender, int index = 0)
+    public void ShowData(string name, int[] age, int[] height, double[] weight, string[] date, char gender, double[] bmr, int index = 0)
     {
         for (int i = 0; i < index; i++)
         {
-            DataMessage(name, age, height, weight, date, gender, i);
+            DataMessage(name, age, height, weight, date, gender, i, bmr);
         }
     }
 
     // mean of user bmr
+    public double BMRAverage(double[] bmr, int index)
+    {
+        double totalBMR = 0;
+        int amountBMRData = 0;
+        double meanBMR;
+
+        for (int i = 0; i < index; i++)
+        {
+            totalBMR = totalBMR + bmr[i];
+            amountBMRData++;
+        }
+
+        meanBMR = totalBMR / amountBMRData;
+
+        return meanBMR;
+    }
 
     // delete data
+    /*
+    public void DeleteData(string userDate, string[] date, string name, int[] age, int[] height, double[] weight, char gender, double[] bmr)
+    {
+        int element_index = 0;
+        //int index_del_element;
 
-    public void SearchData(string name, int[] age, int[] height, double[] weight, int index, char gender, string[] date)
+        foreach (string item in date)
+        {
+            if (userDate == item)
+            {
+                Console.WriteLine($"Index: {element_index}");
+                DataMessage(name, age, height, weight, date, gender, element_index, bmr);
+            }
+
+            element_index++;
+        }
+
+        //Console.Write("Which data do you want to delete: ");
+        //index_del_element = Convert.ToInt32(Console.ReadLine());
+
+        
+
+        return;
+    }
+    */
+
+    public void SearchData(string name, int[] age, int[] height, double[] weight, int index, char gender, string[] date, double[] bmr)
     {
         /*função que encontra os dados inseridos usando como base a data de adição.*/
 
@@ -130,7 +179,7 @@ class BasalMethabolicRate
             {
                 if (date[i] == userSearch)
                 {
-                    DataMessage(name, age, height, weight, date, gender, i);
+                    DataMessage(name, age, height, weight, date, gender, i, bmr);
 
                     break;
                 }else{
@@ -154,6 +203,8 @@ class BasalMethabolicRate
         Console.WriteLine("search: Searchs for a specific data");
         Console.WriteLine("help: Show all the commands");
         Console.WriteLine("quit: Stops the program");
+        Console.WriteLine("delete: Delete a Cell");
+        Console.WriteLine("average: Mean of BMR");
         Console.WriteLine("#############################");
     }
 
