@@ -1,0 +1,15 @@
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\bin\Debug\net8.0\Estudo_CS.exe
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\bin\Debug\net8.0\Estudo_CS.deps.json
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\bin\Debug\net8.0\Estudo_CS.runtimeconfig.json
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\bin\Debug\net8.0\Estudo_CS.dll
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\bin\Debug\net8.0\Estudo_CS.pdb
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.AssemblyInfoInputs.cache
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.AssemblyInfo.cs
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.csproj.CoreCompileInputs.cache
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.sourcelink.json
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.dll
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\refint\Estudo_CS.dll
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.pdb
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\Estudo_CS.genruntimeconfig.cache
+C:\Users\guilh\Downloads\projetos_CSharp\CSharp_Projects\Estudo_CS\obj\Debug\net8.0\ref\Estudo_CS.dll

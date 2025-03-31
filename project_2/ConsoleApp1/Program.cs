@@ -88,11 +88,33 @@ class BasalMethabolicRate
 
     public void AddData(int[] age, int[] height, double[] weight, string[] date,char gender, int index, double[] bmr)
     {
+        /*
         Console.Write("Type your age: ");
         age[index] = Convert.ToInt32(Console.ReadLine());
+        */
 
+        try{
+            Console.Write("Type your age: ");
+            age[index] = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Type your height (cm): ");
+            height[index] = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Type your weight (kg): ");
+            weight[index] = Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Type current date (dd/mm/yyyy): ");
+            date[index] = Convert.ToString(Console.ReadLine());
+            bmr[index] = BMRCalculation(age[index], weight[index], height[index], gender);
+
+        }catch (FormatException)
+        {
+            Console.WriteLine("Incorrect Format!");
+        }
+        /*
         Console.Write("Type your height (cm): ");
         height[index] = Convert.ToInt32(Console.ReadLine());
+        
 
         Console.Write("Type your weight (kg): ");
         weight[index] = Convert.ToDouble(Console.ReadLine());
@@ -100,7 +122,8 @@ class BasalMethabolicRate
         Console.Write("Type current date (dd/mm/yyyy): ");
         date[index] = Convert.ToString(Console.ReadLine());
         bmr[index] = BMRCalculation(age[index], weight[index], height[index], gender);
-
+        */
+        
     }
 
     public void DataMessage(string name, int[] age, int[] height, double[] weight, string[] date, int variateIndex, double[] bmr)
